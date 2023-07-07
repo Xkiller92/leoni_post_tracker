@@ -4,10 +4,8 @@ param(
     [string]$server_url,
 
     [Parameter(Mandatory=$true)]
-    [string]$workstation_list_path,
+    [string]$workstation_list_path
 
-    [Parameter(Mandatory=$true)]
-    [string]$server_url,
 )
 
 foreach ($name in Get-Content $workstation_list_path) {
