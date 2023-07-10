@@ -1,6 +1,9 @@
-0param(
+param(
     [Parameter(Mandatory=$true)]
-    [string]$server_url
+    [string]$server_url,
+
+    [Parameter(Mandatory=$true)]
+    [string]$machine_name
 )
 
 $capacity = foreach ($disk in Get-WmiObject -Class Win32_DiskDrive)
@@ -20,6 +23,7 @@ $ram_capacity_gb = [Math]::Round(($ramCapacity / 1GB), 2)
 #Request Payload information
 $JSON = @'
 {
+            "name" : "$machine_name",
             "totalDiskSpace" : "$total_space",
             "freeDiskSpace" : "$free_space",
             "ramCapacity" : "$ram_capacity_gb",
