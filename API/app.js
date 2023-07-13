@@ -27,9 +27,9 @@ app.use('/swagger/api-docs', swaggerUi.serve, swaggerUi.setup(swaggerDocument));
 const pgp = require('pg-promise')()
 
 const cn = {
-  host: 'localhost',
-  port: 5432,
-  database: 'postgres',
+  host: 'containers-us-west-119.railway.app',
+  port: 7563,
+  database: 'railway',
   user: 'postgres',
   password: 'azer'
 }
@@ -48,10 +48,8 @@ console.log(date)
 db.any('select * from workstation_data where workstation_id = $1',[workstationData.name])
 .then(function(data){
 
-  //console.log(data)
 
   if(data != []){
-    console.log(1)
 
     db.any('update workstation_data set total_disk_space = $1, free_disk_space = $2, ram_capacity = $3, entry_date = $4',
     [workstationData.totalDiskSpace,workstationData.freeDiskSpace,workstationData.ramCapacity, date])
@@ -78,6 +76,10 @@ app.get('/data/specs', (req, res) =>{
   res.send('nice')
 })
 
+app.get('/data/spec/name/:name', (req, res) =>{
+  res.send('nice')
+})
+
 app.post('/update/specs', (req, res) =>{
   res.send('nice')
 })
@@ -87,11 +89,17 @@ app.delete('/delete/specs', (req, res) =>{
 })
 
 app.get('/data/workstations', (req, res) =>{
-  res.send('nice')
+  db.any('select from workstation_data')
+  .then(function(data){
+    res.send(data)
+  })
 })
 
 app.get('/data/workstation/name/:name', (req, res) =>{
-  res.send('nice')
+  db.any('select * from workstation_data where workstation_id = $1',[req.params.name])
+  .then(function(data){
+    res.send(data)
+  })
 })
 
 
