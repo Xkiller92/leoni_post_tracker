@@ -5,6 +5,25 @@ const port = 3000
 
 app.use(express.json())
 
+const swaggerAutogen = require('swagger-autogen')();
+
+const doc = {
+  info: {
+    title: 'My API',
+    description: 'Description',
+  },
+  host: 'localhost:3000',
+  schemes: ['http'],
+};
+
+const outputFile = './swagger.json';
+const endpointsFiles = ['./app.js'];
+
+swaggerAutogen(outputFile, endpointsFiles, doc);
+
+const swaggerUi = require('swagger-ui-express');
+const swaggerDocument = require('./swagger.json');
+app.use('/swagger/api-docs', swaggerUi.serve, swaggerUi.setup(swaggerDocument));
 const pgp = require('pg-promise')()
 
 const cn = {
@@ -19,7 +38,7 @@ const db = pgp(cn)
 
 
 
-app.post('/data/update', (req, res) => {
+app.post('/collect/workstation', (req, res) => {
 workstationData = JSON.parse(JSON.stringify(req.body))
 
 date = new Date().getDate() + "/" +new Date().getMonth() + "/" +new Date().getFullYear();
@@ -48,30 +67,33 @@ db.any('select * from workstation_data where workstation_id = $1',[workstationDa
 
   res.send('nice')
 })
-
-  //save inside database
-  //****************DB structure******************//
-  /*
-                        ---workstation_data---
-        -workstation_id
-        -total_disk_space
-        -free_disk_space
-        -ram_capacity
-        -entry_date
-
-                        ---specs---
-        -spec_number
-        -total_disk_space
-        -free_disk_space
-        -ram_capacity
-        -expiree--date
-
-                        ---workstation_lookup---
-        -workstation_ID
-        -spec_number
-  */
-
 })
+
+
+app.post('/collect/specs', (req, res) =>{
+  res.send('nice')
+})
+
+app.get('/data/specs', (req, res) =>{
+  res.send('nice')
+})
+
+app.post('/update/specs', (req, res) =>{
+  res.send('nice')
+})
+
+app.delete('/delete/specs', (req, res) =>{
+  res.send('nice')
+})
+
+app.get('/data/workstations', (req, res) =>{
+  res.send('nice')
+})
+
+app.get('/data/workstation/name/:name', (req, res) =>{
+  res.send('nice')
+})
+
 
 app.listen(port, () => {
   console.log(`Example app listening on port ${port}`)
