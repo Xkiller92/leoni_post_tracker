@@ -9,10 +9,69 @@
 body{
     font-family: 'Poppins', sans-serif;
     font-family: 'Work Sans', sans-serif;
+    background-image: url("v748-toon-131.jpg");
+    background-size: 100% 300%;
 }
+
 
 nav{
     display: flex;
     justify-content: center; 
     align-items: center;
+    background-color: rgba(40, 43, 45, 0.831);
+    border: 0%;
+    height: 100px;
+}
+
+nav a{
+    text-decoration: none;
+    margin: 15px 75px;
+    color: white;
+    font-weight: bolder;
+    font-size: 25px;
+}
+
+a:hover{
+    color: royalblue;
+    transform: scale(1.5);
+    transition: transform 0.5s;
+}
+
+.card{
+    display: flex;
+    justify-content: center; 
+    align-items: center;
+    margin: 15%;
+    border: none;
+    background: transparent;
+}
+
+.card h2 {
+    font-size: 500%;
+    font-family: Copperplate, Papyrus, fantasy;
+    color: royalblue;
+}
+
+.card h3{
+    font-size: 300%;
+    font-family: Garamond, serif;
+    color: white;
+}
+
+.card h4{
+    font-size: 275%;
+    font-family: Garamond, serif;
+    color: white;
+}
+
+.card h5{
+    font-size: 250%;
+    font-family: Garamond, serif;
+    color: white;
+}
+
+img{
+    position: absolute;
+    z-index: 100;
+    margin: 16px;
 }
