@@ -26,7 +26,7 @@ $JSON = @'
             "name" : "$machine_name",
             "totalDiskSpace" : "$total_space",
             "freeDiskSpace" : "$free_space",
-            "ramCapacity" : "$ram_capacity_gb",
+            "ramCapacity" : "$ram_capacity_gb"
 }
 '@
 
