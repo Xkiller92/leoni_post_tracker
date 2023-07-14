@@ -75,20 +75,20 @@ app.post('/collect/specs', (req, res) =>{
   .then(function(data){
 
 
-  if(data.length != 0){
+    if(data.length != 0){
 
-    db.any('update specs set spec_name = $1, total_disk_space = $2, free_disk_space = $3, ram_capacity = $4, expiree_date = $5 where specs = $6',
-    [SpecsData.name,SpecsData.totalDiskSpace,SpecsData.freeDiskSpace,SpecsData.ramCapacity,date,SpecsData.number])
+      db.any('update specs set spec_name = $1, total_disk_space = $2, free_disk_space = $3, ram_capacity = $4, expiree_date = $5 where specs = $6',
+      [SpecsData.name,SpecsData.totalDiskSpace,SpecsData.freeDiskSpace,SpecsData.ramCapacity,date,SpecsData.number])
 
-    
-  }
-  else{
-  console.log(2)
+      
+    }
+    else{
+    console.log(2)
 
-  db.any('insert into specs values($1,$2,$3,$4,$5,$6)',
-  [SpecsData.number,SpecsData.name,SpecsData.totalDiskSpace,SpecsData.freeDiskSpace,SpecsData.ramCapacity, date])
-  }
-
+    db.any('insert into specs values($1,$2,$3,$4,$5,$6)',
+    [SpecsData.number,SpecsData.name,SpecsData.totalDiskSpace,SpecsData.freeDiskSpace,SpecsData.ramCapacity, date])
+    }
+  })
 })
 
 app.get('/data/specs', (req, res) =>{
