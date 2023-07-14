@@ -31,7 +31,7 @@ const cn = {
   port: 7563,
   database: 'railway',
   user: 'postgres',
-  password: 'azer'
+  password: 'UQaF6tnrjjAtfDHFoxqa'
 }
 
 const db = pgp(cn)
@@ -41,18 +41,18 @@ const db = pgp(cn)
 app.post('/collect/workstation', (req, res) => {
 workstationData = JSON.parse(JSON.stringify(req.body))
 
-date = new Date().getDate() + "/" +new Date().getMonth() + "/" +new Date().getFullYear();
+date = new Date().getUTCMonth() + "/" + new Date().getUTCDate()  + "/" +new Date().getUTCFullYear();
 
 console.log(date)
 
 db.any('select * from workstation_data where workstation_id = $1',[workstationData.name])
 .then(function(data){
+  console.log(data)
 
-
-  if(data != []){
-
-    db.any('update workstation_data set total_disk_space = $1, free_disk_space = $2, ram_capacity = $3, entry_date = $4',
-    [workstationData.totalDiskSpace,workstationData.freeDiskSpace,workstationData.ramCapacity, date])
+  if(data.length != 0){
+    console.log(1)
+    db.any('update workstation_data set total_disk_space = $1, free_disk_space = $2, ram_capacity = $3, entry_date = $4 where workstation_id = $5',
+    [workstationData.totalDiskSpace,workstationData.freeDiskSpace,workstationData.ramCapacity, date, workstationData.name])
 
     
   }
