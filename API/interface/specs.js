@@ -10,19 +10,20 @@ function FetchSpecs(){
     const opt = {
         method: "GET",
         mode: "cors",
+        headers: {
+          'Accept': 'application/json',
+        },
     };
 
-    fetch(req, opt).then((res)=>{
-        if(res.status != 200){
-            alert("problem with getting data from server")
-            return;
-        }
+    fetch(req, opt).then(res => res.json()).then(res =>{
+      
 
-        data = JSON.parse(res.body)
 
+        data = JSON.parse(JSON.stringify(res))
+        console.log(data)
         data.forEach(element => {
           //TODO
-            AddSpec(true, element, element, element, element, element, element)           
+            AddSpec(true, element.spec_number, element.spec_name, element.total_disk_space, element.free_disk_space, element.ram_capacity, element.expiree_date)           
         });
     })
 }
@@ -33,12 +34,12 @@ function ImportFromExel(){
 
 function ModifySpec(id){
   //get the values
-    number = document.getElementById(id +'number')
-    sName = document.getElementById(id +'name')
-    totalDisk = document.getElementById(id +'totalDisk')
-    freeDisk = document.getElementById(id +'freeDisk')
-    ram = document.getElementById(id +'ram')
-    afkTime = document.getElementById(id +'afktime')
+    number = document.getElementById(id +'number').value
+    sName = document.getElementById(id +'name').value
+    totalDisk = document.getElementById(id +'totalDisk').value
+    freeDisk = document.getElementById(id +'freeDisk').value
+    ram = document.getElementById(id +'ram').value
+    afkTime = document.getElementById(id +'afktime').value
   //modify the db
 
     const req = new Request("http://localhost:3000/update/spec")
@@ -72,7 +73,7 @@ function ModifySpec(id){
 
 function DeleteSpec(id){
   //get the data
-  number = document.getElementById(id +'number')
+  number = document.getElementById(id +'number').value
 
   //delete entry from db
 
@@ -100,15 +101,21 @@ function DeleteSpec(id){
   FetchSpecs()  
 }
 
+function uuid() {
+  return ([1e7]+-1e3+-4e3+-8e3+-1e11).replace(/[018]/g, c =>
+    (c ^ crypto.getRandomValues(new Uint8Array(1))[0] & 15 >> c / 4).toString(16)
+  );
+}
+
 function AddSpec(supplied = false,n, s, t, f, r, a){
     container = document.getElementById('specs')
 
-    number = document.getElementById('number')
-    sName = document.getElementById('name')
-    totalDisk = document.getElementById('totalDisk')
-    freeDisk = document.getElementById('freeDisk')
-    ram = document.getElementById('ram')
-    afkTime = document.getElementById('afktime')
+    number = document.getElementById('number').value
+    sName = document.getElementById('name').value
+    totalDisk = document.getElementById('totalDisk').value
+    freeDisk = document.getElementById('freeDisk').value
+    ram = document.getElementById('ram').value
+    afkTime = document.getElementById('afkTime').value
 
     if(supplied == true){
       number = n
@@ -119,7 +126,7 @@ function AddSpec(supplied = false,n, s, t, f, r, a){
       afkTime = a
     }
     
-    UUID = "";
+    UUID = uuid();
 
     container.innerHTML += 
     "<div class='card my-3 mx-5' 'bg-secondary'>\
@@ -135,7 +142,7 @@ function AddSpec(supplied = false,n, s, t, f, r, a){
                   type='text'\
                   class='form-control'\
                   id='" + UUID + "number'\
-                  aria-describedby='basic-addon3'\
+                  aria-describedby='basic-addon3' value='"+ number +"'\
                 />\
               </div>\
             </div>\
@@ -148,7 +155,7 @@ function AddSpec(supplied = false,n, s, t, f, r, a){
                       type='text'\
                       class='form-control'\
                       id='" + UUID + "name'\
-                      aria-describedby='basic-addon3'\
+                      aria-describedby='basic-addon3' value='"+ sName +"'\
                     />\
                   </div>\
             </div>\
@@ -161,7 +168,7 @@ function AddSpec(supplied = false,n, s, t, f, r, a){
                       type='text'\
                       class='form-control'\
                       id='" + UUID + "totalDisk'\
-                      aria-describedby='basic-addon3'\
+                      aria-describedby='basic-addon3' value='"+ totalDisk +"'\
                     />\
                   </div>\
             </div>\
@@ -176,7 +183,7 @@ function AddSpec(supplied = false,n, s, t, f, r, a){
                       type='text'\
                       class='form-control'\
                       id='" + UUID + "freeDisk'\
-                      aria-describedby='basic-addon3'\
+                      aria-describedby='basic-addon3' value='"+ freeDisk +"'\
                     />\
                   </div>\
             </div>\
@@ -189,7 +196,7 @@ function AddSpec(supplied = false,n, s, t, f, r, a){
                       type='text'\
                       class='form-control'\
                       id='" + UUID + "ram'\
-                      aria-describedby='basic-addon3'\
+                      aria-describedby='basic-addon3' value='"+ ram +"'\
                     />\
                   </div>\
             </div>\
@@ -202,7 +209,7 @@ function AddSpec(supplied = false,n, s, t, f, r, a){
                       type='text'\
                       class='form-control'\
                       id='" + UUID + "afkTime'\
-                      aria-describedby='basic-addon3'\
+                      aria-describedby='basic-addon3' value='"+ afkTime +"'\
                     />\
                   </div>\
             </div>\
@@ -221,4 +228,33 @@ function AddSpec(supplied = false,n, s, t, f, r, a){
     </div>"
 
     //add the spec to the db
+    if(supplied == false){
+      //add the spec to the db
+    const req = new Request("http://localhost:3000/collect/specs")
+    req.headers.set("Content-Type", "application/json")
+    bod = 
+    {
+      'name' : sName,
+      'number' : number,
+      'freeDiskSpace' : freeDisk,
+      'totalDiskSpace' : totalDisk,
+      'ramCapacity' : ram,
+      'afkTime' : afkTime 
+    }
+
+    const opt = {
+        method: "POST",
+        mode: "cors",
+        body : JSON.stringify(bod)
+    };
+
+    fetch(req, opt).then((res)=>{
+        if(res.status != 200){
+            alert("something went wrong please retry")
+            return;
+        }
+    })
 }
+}
+
+FetchSpecs()
