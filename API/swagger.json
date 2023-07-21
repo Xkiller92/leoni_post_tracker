@@ -17,6 +17,9 @@
         "responses": {
           "200": {
             "description": "OK"
+          },
+          "403": {
+            "description": "Forbidden"
           }
         }
       }
@@ -25,8 +28,8 @@
       "post": {
         "description": "",
         "responses": {
-          "default": {
-            "description": ""
+          "403": {
+            "description": "Forbidden"
           }
         }
       }
@@ -37,6 +40,9 @@
         "responses": {
           "200": {
             "description": "OK"
+          },
+          "403": {
+            "description": "Forbidden"
           }
         }
       }
@@ -55,26 +61,35 @@
         "responses": {
           "200": {
             "description": "OK"
+          },
+          "403": {
+            "description": "Forbidden"
           }
         }
       }
     },
-    "/update/specs": {
+    "/update/spec": {
       "post": {
         "description": "",
         "responses": {
           "200": {
             "description": "OK"
+          },
+          "403": {
+            "description": "Forbidden"
           }
         }
       }
     },
-    "/delete/specs": {
+    "/delete/spec": {
       "delete": {
         "description": "",
         "responses": {
           "200": {
             "description": "OK"
+          },
+          "403": {
+            "description": "Forbidden"
           }
         }
       }
@@ -85,6 +100,9 @@
         "responses": {
           "200": {
             "description": "OK"
+          },
+          "403": {
+            "description": "Forbidden"
           }
         }
       }
@@ -103,6 +121,22 @@
         "responses": {
           "200": {
             "description": "OK"
+          },
+          "403": {
+            "description": "Forbidden"
+          }
+        }
+      }
+    },
+    "/login": {
+      "post": {
+        "description": "",
+        "responses": {
+          "200": {
+            "description": "OK"
+          },
+          "403": {
+            "description": "Forbidden"
           }
         }
       }

@@ -1,3 +1,7 @@
+const username = "a"
+const pwd = "a"
+
+const blockedResources = ["/home.html", "/specs.html", "/monitoring.html", "workstations.html"]
 
 const express = require('express')
 const app = express()
@@ -5,6 +9,31 @@ const port = 3000
 
 app.use(express.json())
 
+const cookieParser = require("cookie-parser");
+app.use(cookieParser());
+
+
+const auth = function (req, res, next) {
+  a = 0;
+  blockedResources.forEach(element => {
+    if(element == req.originalUrl){
+      if (req.cookies.token == "1234") {
+        next()
+        a = 1;
+      }
+      else{
+        res.sendStatus(403)
+      }
+    }
+  });
+  
+  if(a == 0){
+    next()
+  }
+}
+
+app.use(auth)
+app.use(express.static("interface"));
 const swaggerAutogen = require('swagger-autogen')();
 
 const doc = {
@@ -109,14 +138,14 @@ app.get('/data/spec/name/:name', (req, res) =>{
 
 })
 
-app.post('/update/specs', (req, res) =>{
+app.post('/update/spec', (req, res) =>{
   SpecsData = JSON.parse(JSON.stringify(req.body))
-  db.any('update specs set spec_name = $1, total_disk_space = $2, free_disk_space = $3, ram_capacity = $4, expiree_date = $5 where specs = $6',
-    [SpecsData.name,SpecsData.totalDiskSpace,SpecsData.freeDiskSpace,SpecsData.ramCapacity,date,SpecsData.number])
+  db.any('update specs set spec_name = $1, total_disk_space = $2, free_disk_space = $3, ram_capacity = $4, expiree_date = $5 where spec_number = $6',
+    [SpecsData.name,SpecsData.totalDiskSpace,SpecsData.freeDiskSpace,SpecsData.ramCapacity,SpecsData.afkTime,SpecsData.number])
   res.send('nice')
 })
 
-app.delete('/delete/specs', (req, res) =>{
+app.delete('/delete/spec', (req, res) =>{
   SpecsData = JSON.parse(JSON.stringify(req.body))
   db.any('delete * from specs where specs = $1',[SpecsData.number])
   res.send('nice')
@@ -136,6 +165,16 @@ app.get('/data/workstation/name/:name', (req, res) =>{
   })
 })
 
+app.post("/login",(req, res) =>{
+  userData = JSON.parse(JSON.stringify(req.body))
+  if(userData.username == username && userData.password == pwd){
+    res.cookie("token", "1234")
+    res.send(200)
+  }
+  else{
+    res.sendStatus(403)
+  }
+})
 
 app.listen(port, () => {
   console.log(`Example app listening on port ${port}`)
