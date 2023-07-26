@@ -9,6 +9,7 @@ function FetchSpecs(){
 
     const opt = {
         method: "GET",
+        //ta3ml sécurité ta3 l broser 'cors: cross origin requests'
         mode: "cors",
     };
 
@@ -100,7 +101,7 @@ function DeleteSpec(id){
   FetchSpecs()  
 }
 
-function AddSpec(supplied = false,n, s, t, f, r, a){
+function AddSpec(supplied = false, n, s, t, f, r, a){
     container = document.getElementById('specs')
 
     number = document.getElementById('number')
@@ -119,6 +120,7 @@ function AddSpec(supplied = false,n, s, t, f, r, a){
       afkTime = a
     }
     
+    //Universally Unique IDentifiier
     UUID = "";
 
     container.innerHTML += 

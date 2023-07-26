@@ -1,0 +1,134 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Workstation</title>
+    <link rel="stylesheet" href="bootstrap-5.3.0-dist/css/bootstrap.min.css" />
+    <style>
+        * {
+            -webkit-box-sizing: border-box;
+            -moz-box-sizing: border-box;
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            font-family: 'Poppins', sans-serif;
+            font-family: 'Work Sans', sans-serif;
+            background-image: url("./3d-grunge-room-interior-with-spotlight-smoky-atmosphere-background.jpg");
+            background-size: 100% 300%;
+            background-repeat: no-repeat;
+        }
+
+        nav {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            background-color: rgba(40, 43, 45, 0.831);
+            border: 0%;
+            height: 100px;
+        }
+
+        nav a {
+            text-decoration: none;
+            margin: 15px 75px;
+            color: white;
+            font-weight: bolder;
+            font-size: 25px;
+        }
+
+        a:hover {
+            color: royalblue;
+            transform: scale(1.5);
+            transition: transform 0.5s;
+        }
+
+        col {
+            margin: 20px;
+        }
+
+        img {
+            position: absolute;
+            z-index: 100;
+            margin: 16px;
+        }
+    </style>
+</head>
+
+<body>
+
+
+    <div class="leoni">
+        <img src="./Leoni_Logo.png" width="145" height="67" />
+    </div>
+
+    <header>
+        <nav>
+            <a href="./home.html">Home</a>
+            <a href="./specs.html">Specs</a>
+            <a href="./monitoring.html">Monotoring</a>
+        </nav>
+    </header>
+
+    <div class="card my-3 mx-5 bg-secondary">
+        <div class="card-body">
+            <div class="container text-center">
+                <div class="row align-items-center">
+                    <div class="col">
+                        <div class="input-group mb-3">
+                            <span class="input-group-text" id="basic-addon3">spec number</span>
+                            <input type="text" class="form-control" id="number" aria-describedby="basic-addon3" />
+                        </div>
+                    </div>
+                    <div class="col">
+                        <div class="input-group mb-3">
+                            <span class="input-group-text" id="basic-addon3">Workstation ID</span>
+                            <input type="text" class="form-control" id="name" aria-describedby="basic-addon3" />
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+
+            <div class="row align-items-center">
+                <div class="col">
+                    
+                </div>
+                <div class="col">
+                   
+                </div>
+                <div class="col">
+                    <button onclick="AddSpec()" type="button" class="btn btn-success">Add Entry</button>
+                </div>
+                
+                <div class="col">
+                   
+                </div>
+                <div class="col">
+                   
+                </div>
+
+                <div class="col">
+                    <button onclick="AddFromExel()" type="button" class="btn btn-warning">Import from exel</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+
+
+    <div id="workstations">
+        
+    </div>
+
+
+
+
+    <script src="./workstations.js"></script>
+</body>
+
+</html>
