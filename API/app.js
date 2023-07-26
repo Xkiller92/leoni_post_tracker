@@ -106,7 +106,7 @@ app.post('/collect/specs', (req, res) =>{
 
     if(data.length != 0){
 
-      db.any('update specs set spec_name = $1, total_disk_space = $2, free_disk_space = $3, ram_capacity = $4, expiree_date = $5 where specs = $6',
+      db.any('update specs set spec_name = $1, total_disk_space = $2, free_disk_space = $3, ram_capacity = $4, expiree_date = $5 where spec_number = $6',
       [SpecsData.name,SpecsData.totalDiskSpace,SpecsData.freeDiskSpace,SpecsData.ramCapacity,date,SpecsData.number])
 
       
@@ -147,7 +147,7 @@ app.post('/update/spec', (req, res) =>{
 
 app.delete('/delete/spec', (req, res) =>{
   SpecsData = JSON.parse(JSON.stringify(req.body))
-  db.any('delete * from specs where specs = $1',[SpecsData.number])
+  db.any('delete * from specs where spec_number = $1',[SpecsData.number])
   res.send('nice')
 })
 
