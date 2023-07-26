@@ -17,10 +17,16 @@ function FetchSpecs() {
 
         data = JSON.parse(res.body)
 
+        if (data = []) {
+            container = document.getElementById('monitoring')
+            container.innerHTML = "everything is fine"
+        }else{
+
         data.forEach(element => {
             //TODO
-            AddSpec(element)
+            AddSpec(element.workstation_id)
         });
+    }
     })
 }
 
@@ -30,8 +36,12 @@ function AddSpec(wsID) {
 
     container.innerHTML +=
         "<button type='button' class='btn btn-danger'> class='form-control'\
-        id='name'>"+ wsID +" </button>"
+        id='name' onclick='ReportWs("+ wsID +")'>"+ wsID +" </button>"
 
 }
+
+ReportWs(id)(
+    window.location = "/report?id=" + id
+)
 
 FetchSpecs()

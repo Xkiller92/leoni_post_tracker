@@ -65,7 +65,8 @@ function ModifySpec(id) {
 
 function DeleteSpec(id) {
     //get the data
-    workstationId = document.getElementById(id + 'workstationid')
+    specName = document.getElementById('number').value
+    wsId = document.getElementById('name').value
 
     //delete entry from db
 
@@ -104,8 +105,8 @@ function uuid() {
 function AddSpec(supplied = false, n, s) {
     container = document.getElementById('workstations')
 
-    specName = document.getElementById('number')
-    wsId = document.getElementById('name')
+    specName = document.getElementById('number').value
+    wsId = document.getElementById('name').value
 
     if (supplied == true) {
         wsId = n

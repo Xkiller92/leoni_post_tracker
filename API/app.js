@@ -186,6 +186,31 @@ app.post("/delete/pair", (req, res) =>{
   db.any("delete from workstation_lookup where spec_number = $1, workstation_id = $2", [data.specName, data.workstationId])
 })
 
+
+app.get("/data/monitoring", (req, res)=>{
+  db.any("select * from workstation_data").then(function(data){
+    corruptedWSS = []
+
+    data.forEach(element => {
+      db.any("select spec_number from workstation_lookup where workstation_id = $1", [element.workstation_id]).then(function(dataa){
+        db.any("select * from specs where spec_number = $1", [dataa]).then(function(data){
+          //compare the spec to the current ws info
+
+          if (corrupted) {
+            corruptedWSS.add(element) 
+          }
+        })
+      })
+    });
+
+    res.send(corruptedWSS)
+  })
+})
+
+
+
+
+
 app.post("/login",(req, res) =>{
   userData = JSON.parse(JSON.stringify(req.body))
   if(userData.username == username && userData.password == pwd){
