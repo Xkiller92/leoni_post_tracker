@@ -5,7 +5,7 @@ function FetchSpecs() {
 
     //fetch all specs from db
 
-    const req = new Request("http://localhost:3000/data/workstations")
+    const req = new Request("http://localhost:3000/data/pairs")
 
     const opt = {
         method: "GET",
@@ -23,7 +23,7 @@ function FetchSpecs() {
 
         data.forEach(element => {
             //TODO
-            AddSpec(true, element, element, element, element, element, element)
+            AddSpec(true, element.workstation_id, element.spec_number)
         });
     })
 }
@@ -34,22 +34,16 @@ function ImportFromExel() {
 
 function ModifySpec(id) {
     //get the values
-    workstationId = document.getElementById(id + 'workstationid')
-    totalDisk = document.getElementById(id + 'totalDisk')
-    freeDisk = document.getElementById(id + 'freeDisk')
-    ram = document.getElementById(id + 'ram')
-    afkTime = document.getElementById(id + 'afktime')
+    specName = document.getElementById(id +'number')
+    wsId = document.getElementById(id + 'name')
     //modify the db
 
-    const req = new Request("http://localhost:3000/update/workstation")
+    const req = new Request("http://localhost:3000/update/pair")
     req.headers.set("Content-Type", "application/json")
-    bod =
+    bod = 
     {
-        'workstation': workstationId,
-        'totalDiskSpace': totalDisk,
-        'freeDiskSpace': freeDisk,
-        'ramCapacity': ram,
-        'afkTime': afkTime
+      'specName' : specName,
+      'workstationId' : wsId
     }
 
     const opt = {
@@ -75,11 +69,12 @@ function DeleteSpec(id) {
 
     //delete entry from db
 
-    const req = new Request("http://localhost:3000/delete/workstation")
+    const req = new Request("http://localhost:3000/delete/pair")
     req.headers.set("Content-Type", "application/json")
-    bod =
+    bod = 
     {
-        'workstationid': workstationId
+      'specName' : specName,
+      'workstationId' : wsId
     }
 
     const opt = {
@@ -99,25 +94,26 @@ function DeleteSpec(id) {
     Fetchworkstations()
 }
 
-function AddSpec(supplied = false, w, t, f, r, a) {
+function uuid() {
+  return ([1e7]+-1e3+-4e3+-8e3+-1e11).replace(/[018]/g, c =>
+    (c ^ crypto.getRandomValues(new Uint8Array(1))[0] & 15 >> c / 4).toString(16)
+  );
+}
+
+
+function AddSpec(supplied = false, n, s) {
     container = document.getElementById('workstations')
 
-    workstationId = document.getElementById('workstationid')
-    totalDisk = document.getElementById('totalDisk')
-    freeDisk = document.getElementById('freeDisk')
-    ram = document.getElementById('ram')
-    afkTime = document.getElementById('afktime')
+    specName = document.getElementById('number')
+    wsId = document.getElementById('name')
 
     if (supplied == true) {
-        workstationId = w
-        totalDisk = t
-        freeDisk = f
-        ram = r
-        afkTime = a
+        wsId = n
+        specName = s
     }
 
     //Universally Unique IDentifiier
-    UUID = "";
+    UUID = uuid();
 
     container.innerHTML +=
         "<div class='card my-3 mx-5' 'bg-secondary'>\
@@ -127,7 +123,7 @@ function AddSpec(supplied = false, w, t, f, r, a) {
             <div class='col'>\
               <div class='input-group mb-3'>\
                 <span class='input-group-text' id='basic-addon3'\
-                  >spec number</span\
+                  >"+specName+"</span\
                 >\
                 <input\
                   type='text'\
@@ -140,66 +136,12 @@ function AddSpec(supplied = false, w, t, f, r, a) {
             <div class='col'>\
                 <div class='input-group mb-3'>\
                     <span class='input-group-text' id='basic-addon3'\
-                      >spec name</span\
+                      >"+ wsId+"</span\
                     >\
                     <input\
                       type='text'\
                       class='form-control'\
                       id='" + UUID + "name'\
-                      aria-describedby='basic-addon3'\
-                    />\
-                  </div>\
-            </div>\
-            <div class='col'>\
-                <div class='input-group mb-3'>\
-                    <span class='input-group-text' id='basic-addon3'\
-                      >total disk space</span\
-                    >\
-                    <input\
-                      type='text'\
-                      class='form-control'\
-                      id='" + UUID + "totalDisk'\
-                      aria-describedby='basic-addon3'\
-                    />\
-                  </div>\
-            </div>\
-          </div>\
-          <div class='row align-items-center'>\
-            <div class='col'>\
-                <div class='input-group mb-3'>\
-                    <span class='input-group-text' id='basic-addon3'\
-                      >free disk space</span\
-                    >\
-                    <input\
-                      type='text'\
-                      class='form-control'\
-                      id='" + UUID + "freeDisk'\
-                      aria-describedby='basic-addon3'\
-                    />\
-                  </div>\
-            </div>\
-            <div class='col'>\
-                <div class='input-group mb-3'>\
-                    <span class='input-group-text' id='basic-addon3'\
-                      >ram capacity</span\
-                    >\
-                    <input\
-                      type='text'\
-                      class='form-control'\
-                      id='" + UUID + "ram'\
-                      aria-describedby='basic-addon3'\
-                    />\
-                  </div>\
-            </div>\
-            <div class='col'>\
-                <div class='input-group mb-3'>\
-                    <span class='input-group-text' id='basic-addon3'\
-                      >num of days till AFK</span\
-                    >\
-                    <input\
-                      type='text'\
-                      class='form-control'\
-                      id='" + UUID + "afkTime'\
                       aria-describedby='basic-addon3'\
                     />\
                   </div>\
@@ -218,5 +160,29 @@ function AddSpec(supplied = false, w, t, f, r, a) {
       </div>\
     </div>"
 
+    if (supplied == false) {
+      
     //add the spec to the db
+    const req = new Request("http://localhost:3000/collect/pair")
+    req.headers.set("Content-Type", "application/json")
+    bod = 
+    {
+      'specName' : specName,
+      'workstationId' : wsId
+    }
+
+    const opt = {
+        method: "POST",
+        mode: "cors",
+        body : JSON.stringify(bod)
+    };
+
+    fetch(req, opt).then((res)=>{
+        if(res.status != 200){
+            alert("something went wrong please retry")
+            return;
+        }
+    })
+    }
+
 }

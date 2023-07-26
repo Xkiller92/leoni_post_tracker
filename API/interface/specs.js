@@ -102,9 +102,6 @@ function DeleteSpec(id){
   FetchSpecs()  
 }
 
-<<<<<<< HEAD
-function AddSpec(supplied = false, n, s, t, f, r, a){
-=======
 function uuid() {
   return ([1e7]+-1e3+-4e3+-8e3+-1e11).replace(/[018]/g, c =>
     (c ^ crypto.getRandomValues(new Uint8Array(1))[0] & 15 >> c / 4).toString(16)
@@ -112,7 +109,6 @@ function uuid() {
 }
 
 function AddSpec(supplied = false,n, s, t, f, r, a){
->>>>>>> 5e10deb21bb531356f6b148253da6c52f68fe666
     container = document.getElementById('specs')
 
     number = document.getElementById('number').value
@@ -131,12 +127,7 @@ function AddSpec(supplied = false,n, s, t, f, r, a){
       afkTime = a
     }
     
-<<<<<<< HEAD
-    //Universally Unique IDentifiier
-    UUID = "";
-=======
     UUID = uuid();
->>>>>>> 5e10deb21bb531356f6b148253da6c52f68fe666
 
     container.innerHTML += 
     "<div class='card my-3 mx-5' 'bg-secondary'>\

@@ -2,7 +2,7 @@ function connect(){
     user = document.getElementById("user").value
     pwd = document.getElementById("pwd").value
     console .log(user + pwd)
-    const req = new Request("http://localhost:3000/login")
+   const req = new Request("http://localhost:3000/login")
     req.headers.set("Content-Type", "application/json")
     bod = {username : user, password : pwd}
 

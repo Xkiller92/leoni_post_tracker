@@ -1,0 +1,82 @@
+Date : 2023-07-26 09:51:47
+Directory : d:\dev\internship\leoni_post_tracker
+Total : 45 files,  55561 codes, 1984 comments, 4750 blanks, all 62295 lines
+
+Languages
++------------+------------+------------+------------+------------+------------+
+| language   | files      | code       | comment    | blank      | total      |
++------------+------------+------------+------------+------------+------------+
+| CSS        |         19 |     41,079 |        122 |      3,328 |     44,529 |
+| JavaScript |         11 |     12,744 |      1,859 |      1,326 |     15,929 |
+| JSON       |          5 |      1,341 |          0 |          4 |      1,345 |
+| HTML       |          5 |        352 |          1 |         76 |        429 |
+| PowerShell |          5 |         45 |          2 |         16 |         63 |
++------------+------------+------------+------------+------------+------------+
+
+Directories
++-------------------------------------------------------------------------------------------------------------+------------+------------+------------+------------+------------+
+| path                                                                                                        | files      | code       | comment    | blank      | total      |
++-------------------------------------------------------------------------------------------------------------+------------+------------+------------+------------+------------+
+| .                                                                                                           |         45 |     55,561 |      1,984 |      4,750 |     62,295 |
+| . (Files)                                                                                                   |          2 |        202 |          0 |          2 |        204 |
+| API                                                                                                         |         38 |     55,314 |      1,982 |      4,732 |     62,028 |
+| API (Files)                                                                                                 |          4 |      1,286 |          0 |         51 |      1,337 |
+| API\interface                                                                                               |         34 |     54,028 |      1,982 |      4,681 |     60,691 |
+| API\interface (Files)                                                                                       |         12 |        948 |         25 |        168 |      1,141 |
+| API\interface\bootstrap-5.3.0-dist                                                                          |         22 |     53,080 |      1,957 |      4,513 |     59,550 |
+| API\interface\bootstrap-5.3.0-dist\css                                                                      |         16 |     40,874 |        122 |      3,299 |     44,295 |
+| API\interface\bootstrap-5.3.0-dist\js                                                                       |          6 |     12,206 |      1,835 |      1,214 |     15,255 |
+| powershell_tracker_script                                                                                   |          5 |         45 |          2 |         16 |         63 |
++-------------------------------------------------------------------------------------------------------------+------------+------------+------------+------------+------------+
+
+Files
++-------------------------------------------------------------------------------------------------------------+------------+------------+------------+------------+------------+
+| filename                                                                                                    | language   | code       | comment    | blank      | total      |
++-------------------------------------------------------------------------------------------------------------+------------+------------+------------+------------+------------+
+| d:\dev\internship\leoni_post_tracker\API\app.js                                                             | JavaScript |        147 |          0 |         49 |        196 |
+| d:\dev\internship\leoni_post_tracker\API\interface\bootstrap-5.3.0-dist\css\bootstrap-grid.css              | CSS        |      3,886 |          6 |        193 |      4,085 |
+| d:\dev\internship\leoni_post_tracker\API\interface\bootstrap-5.3.0-dist\css\bootstrap-grid.min.css          | CSS        |          1 |          5 |          0 |          6 |
+| d:\dev\internship\leoni_post_tracker\API\interface\bootstrap-5.3.0-dist\css\bootstrap-grid.rtl.css          | CSS        |      3,886 |          6 |        192 |      4,084 |
+| d:\dev\internship\leoni_post_tracker\API\interface\bootstrap-5.3.0-dist\css\bootstrap-grid.rtl.min.css      | CSS        |          1 |          5 |          0 |          6 |
+| d:\dev\internship\leoni_post_tracker\API\interface\bootstrap-5.3.0-dist\css\bootstrap-reboot.css            | CSS        |        514 |         14 |         65 |        593 |
+| d:\dev\internship\leoni_post_tracker\API\interface\bootstrap-5.3.0-dist\css\bootstrap-reboot.min.css        | CSS        |          1 |          5 |          0 |          6 |
+| d:\dev\internship\leoni_post_tracker\API\interface\bootstrap-5.3.0-dist\css\bootstrap-reboot.rtl.css        | CSS        |        520 |          6 |         64 |        590 |
+| d:\dev\internship\leoni_post_tracker\API\interface\bootstrap-5.3.0-dist\css\bootstrap-reboot.rtl.min.css    | CSS        |          1 |          5 |          0 |          6 |
+| d:\dev\internship\leoni_post_tracker\API\interface\bootstrap-5.3.0-dist\css\bootstrap-utilities.css         | CSS        |      4,888 |          8 |        503 |      5,399 |
+| d:\dev\internship\leoni_post_tracker\API\interface\bootstrap-5.3.0-dist\css\bootstrap-utilities.min.css     | CSS        |          1 |          5 |          0 |          6 |
+| d:\dev\internship\leoni_post_tracker\API\interface\bootstrap-5.3.0-dist\css\bootstrap-utilities.rtl.css     | CSS        |      4,884 |          6 |        500 |      5,390 |
+| d:\dev\internship\leoni_post_tracker\API\interface\bootstrap-5.3.0-dist\css\bootstrap-utilities.rtl.min.css | CSS        |          1 |          5 |          0 |          6 |
+| d:\dev\internship\leoni_post_tracker\API\interface\bootstrap-5.3.0-dist\css\bootstrap.css                   | CSS        |     11,142 |         32 |        897 |     12,071 |
+| d:\dev\internship\leoni_post_tracker\API\interface\bootstrap-5.3.0-dist\css\bootstrap.min.css               | CSS        |          2 |          4 |          0 |          6 |
+| d:\dev\internship\leoni_post_tracker\API\interface\bootstrap-5.3.0-dist\css\bootstrap.rtl.css               | CSS        |     11,144 |          6 |        885 |     12,035 |
+| d:\dev\internship\leoni_post_tracker\API\interface\bootstrap-5.3.0-dist\css\bootstrap.rtl.min.css           | CSS        |          2 |          4 |          0 |          6 |
+| d:\dev\internship\leoni_post_tracker\API\interface\bootstrap-5.3.0-dist\js\bootstrap.bundle.js              | JavaScript |      5,053 |        655 |        599 |      6,307 |
+| d:\dev\internship\leoni_post_tracker\API\interface\bootstrap-5.3.0-dist\js\bootstrap.bundle.min.js          | JavaScript |          1 |          6 |          0 |          7 |
+| d:\dev\internship\leoni_post_tracker\API\interface\bootstrap-5.3.0-dist\js\bootstrap.esm.js                 | JavaScript |      3,557 |        578 |        305 |      4,440 |
+| d:\dev\internship\leoni_post_tracker\API\interface\bootstrap-5.3.0-dist\js\bootstrap.esm.min.js             | JavaScript |          1 |          6 |          0 |          7 |
+| d:\dev\internship\leoni_post_tracker\API\interface\bootstrap-5.3.0-dist\js\bootstrap.js                     | JavaScript |      3,593 |        584 |        310 |      4,487 |
+| d:\dev\internship\leoni_post_tracker\API\interface\bootstrap-5.3.0-dist\js\bootstrap.min.js                 | JavaScript |          1 |          6 |          0 |          7 |
+| d:\dev\internship\leoni_post_tracker\API\interface\home.html                                                | HTML       |         30 |          0 |          6 |         36 |
+| d:\dev\internship\leoni_post_tracker\API\interface\login.html                                               | HTML       |         26 |          0 |          5 |         31 |
+| d:\dev\internship\leoni_post_tracker\API\interface\login.js                                                 | JavaScript |         24 |          0 |          3 |         27 |
+| d:\dev\internship\leoni_post_tracker\API\interface\monitoring.html                                          | HTML       |        101 |          1 |         24 |        126 |
+| d:\dev\internship\leoni_post_tracker\API\interface\monitoring.js                                            | JavaScript |          0 |          0 |          1 |          1 |
+| d:\dev\internship\leoni_post_tracker\API\interface\specs.html                                               | HTML       |         91 |          0 |         11 |        102 |
+| d:\dev\internship\leoni_post_tracker\API\interface\specs.js                                                 | JavaScript |        219 |         12 |         30 |        261 |
+| d:\dev\internship\leoni_post_tracker\API\interface\style.css                                                | CSS        |         98 |          0 |         12 |        110 |
+| d:\dev\internship\leoni_post_tracker\API\interface\styleh.css                                               | CSS        |         66 |          0 |         11 |         77 |
+| d:\dev\internship\leoni_post_tracker\API\interface\styles.css                                               | CSS        |         41 |          0 |          6 |         47 |
+| d:\dev\internship\leoni_post_tracker\API\interface\workstations.html                                        | HTML       |        104 |          0 |         30 |        134 |
+| d:\dev\internship\leoni_post_tracker\API\interface\workstations.js                                          | JavaScript |        148 |         12 |         29 |        189 |
+| d:\dev\internship\leoni_post_tracker\API\package-lock.json                                                  | JSON       |        973 |          0 |          1 |        974 |
+| d:\dev\internship\leoni_post_tracker\API\package.json                                                       | JSON       |         21 |          0 |          1 |         22 |
+| d:\dev\internship\leoni_post_tracker\API\swagger.json                                                       | JSON       |        145 |          0 |          0 |        145 |
+| d:\dev\internship\leoni_post_tracker\package-lock.json                                                      | JSON       |        197 |          0 |          1 |        198 |
+| d:\dev\internship\leoni_post_tracker\package.json                                                           | JSON       |          5 |          0 |          1 |          6 |
+| d:\dev\internship\leoni_post_tracker\powershell_tracker_script\combination.ps1                              | PowerShell |         24 |          1 |          9 |         34 |
+| d:\dev\internship\leoni_post_tracker\powershell_tracker_script\daily_standup_tracker.ps1                    | PowerShell |          1 |          0 |          0 |          1 |
+| d:\dev\internship\leoni_post_tracker\powershell_tracker_script\disk_space_tracker.ps1                       | PowerShell |          8 |          0 |          3 |         11 |
+| d:\dev\internship\leoni_post_tracker\powershell_tracker_script\ram_tracker.ps1                              | PowerShell |          3 |          0 |          1 |          4 |
+| d:\dev\internship\leoni_post_tracker\powershell_tracker_script\startup.ps1                                  | PowerShell |          9 |          1 |          3 |         13 |
+| Total                                                                                                       |            |     55,561 |      1,984 |      4,750 |     62,295 |
++-------------------------------------------------------------------------------------------------------------+------------+------------+------------+------------+------------+

@@ -165,6 +165,27 @@ app.get('/data/workstation/name/:name', (req, res) =>{
   })
 })
 
+app.get("/data/pairs", (req, res)=>{
+  db.any("select * from workstation_lookup").then(function(data){
+    res.send(data)
+  })
+})
+
+app.post("/collect/pair", (req, res) =>{
+  data = JSON.parse(JSON.stringify(req.body)) 
+  db.any("insert into workstation_lookup values($1, $2)", [data.specName, data.workstationId])
+})
+
+app.post("/modify/pair", (req, res) =>{
+  data = JSON.parse(JSON.stringify(req.body)) 
+  db.any("update workstation_lookup set spec_number = $1, workstation_id = $2 where spec_number = $1, workstation_id = $2", [data.specName, data.workstationId])
+})
+
+app.post("/delete/pair", (req, res) =>{
+  data = JSON.parse(JSON.stringify(req.body)) 
+  db.any("delete from workstation_lookup where spec_number = $1, workstation_id = $2", [data.specName, data.workstationId])
+})
+
 app.post("/login",(req, res) =>{
   userData = JSON.parse(JSON.stringify(req.body))
   if(userData.username == username && userData.password == pwd){
