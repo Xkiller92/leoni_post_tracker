@@ -129,11 +129,13 @@ app.get('/data/specs', (req, res) =>{
 
 })
 
-app.get('/data/spec/name/:name', (req, res) =>{
+app.get('/data/spec/id/:id', (req, res) =>{
   
-  db.any('select * from specs where spec_name = '[req.params.name])
+  db.any('select spec_number from workstation_lookup where workstation_id = $1'[req.params.id])
   .then(function(data){
-    res.send(data)
+    db.any("select from specs where spec_number = $1", [data]).then(function(dataa){
+      res.send(dataa)
+    })
   })
 
 })
@@ -158,8 +160,8 @@ app.get('/data/workstations', (req, res) =>{
   })
 })
 
-app.get('/data/workstation/name/:name', (req, res) =>{
-  db.any('select * from workstation_data where workstation_id = $1',[req.params.name])
+app.get('/data/workstation/id/:id', (req, res) =>{
+  db.any('select * from workstation_data where workstation_id = $1',[req.params.id])
   .then(function(data){
     res.send(data)
   })

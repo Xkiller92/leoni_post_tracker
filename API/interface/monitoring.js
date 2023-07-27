@@ -40,8 +40,8 @@ function AddSpec(wsID) {
 
 }
 
-ReportWs(id)(
-    window.location = "/report?id=" + id
-)
+function ReportWs(id){
+    window.location = "./raport.html?id=" + id
+}
 
 FetchSpecs()
