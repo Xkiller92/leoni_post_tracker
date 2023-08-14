@@ -129,11 +129,11 @@ app.get('/data/specs', (req, res) =>{
 
 })
 
-app.get('/data/spec/id/:id', (req, res) =>{
-  
-  db.any('select spec_number from workstation_lookup where workstation_id = $1'[req.params.id])
+app.post('/data/spec/id', (req, res) =>{
+  SpecsData = JSON.parse(JSON.stringify(req.body))
+  db.any('select spec_number from workstation_lookup where workstation_id = $1',[SpecsData.id])
   .then(function(data){
-    db.any("select from specs where spec_number = $1", [data]).then(function(dataa){
+    db.any("select * from specs where spec_number = $1", [data[0].spec_number]).then(function(dataa){
       res.send(dataa)
     })
   })
@@ -147,21 +147,24 @@ app.post('/update/spec', (req, res) =>{
   res.send('nice')
 })
 
-app.delete('/delete/spec', (req, res) =>{
+app.post('/delete/spec', (req, res) =>{
   SpecsData = JSON.parse(JSON.stringify(req.body))
-  db.any('delete * from specs where spec_number = $1',[SpecsData.number])
+  db.any('delete from specs where spec_number = $1',[SpecsData.number])
   res.send('nice')
 })
 
 app.get('/data/workstations', (req, res) =>{
-  db.any('select from workstation_data')
+  db.any('select * from workstation_data')
   .then(function(data){
     res.send(data)
   })
 })
 
-app.get('/data/workstation/id/:id', (req, res) =>{
-  db.any('select * from workstation_data where workstation_id = $1',[req.params.id])
+
+
+app.post('/data/workstation/id', (req, res) =>{
+  SpecsData = JSON.parse(JSON.stringify(req.body))
+  db.any('select * from workstation_data where workstation_id = $1',[SpecsData.id])
   .then(function(data){
     res.send(data)
   })
@@ -180,33 +183,62 @@ app.post("/collect/pair", (req, res) =>{
 
 app.post("/modify/pair", (req, res) =>{
   data = JSON.parse(JSON.stringify(req.body)) 
-  db.any("update workstation_lookup set spec_number = $1, workstation_id = $2 where spec_number = $1, workstation_id = $2", [data.specName, data.workstationId])
+  console.log(data)
+  db.any("update workstation_lookup set spec_number = $1, workstation_id = $2 where spec_number = $1 and workstation_id = $2", [data.specName, data.workstationId])
 })
 
 app.post("/delete/pair", (req, res) =>{
   data = JSON.parse(JSON.stringify(req.body)) 
-  db.any("delete from workstation_lookup where spec_number = $1, workstation_id = $2", [data.specName, data.workstationId])
+  db.any("delete from workstation_lookup where spec_number = $1 and workstation_id = $2", [data.specName, data.workstationId])
 })
 
 
 app.get("/data/monitoring", (req, res)=>{
-  db.any("select * from workstation_data").then(function(data){
-    corruptedWSS = []
+  const corruptedWSS = []
 
-    data.forEach(element => {
-      db.any("select spec_number from workstation_lookup where workstation_id = $1", [element.workstation_id]).then(function(dataa){
-        db.any("select * from specs where spec_number = $1", [dataa]).then(function(data){
+
+  db.any("select * from workstation_data").then(async function(data){
+    await Promise.all(data.map(async function(element){
+      await db.any("select * from workstation_lookup where workstation_id = $1", [element.workstation_id]).then(async function(dataa){
+        await db.any("select * from specs where spec_number = $1", [dataa[0].spec_number]).then(function(adata){
           //compare the spec to the current ws info
+          corrupted = false;
+          
+          if (element.total_disk_space != adata[0].total_disk_space) {
+            corrupted = true;
+          }    
+          
+          if (element.free_disk_space < adata[0].free_disk_space) {
+            corrupted = true;
+          }
+          
+          
+          if (element.ram_capacity != adata[0].ram_capacity) {
+            corrupted = true;
+          }
+          
+          diffInMs   = new Date() - new Date(element.entry_date)
+          diffInDays = diffInMs / (1000 * 60 * 60 * 24);
 
-          if (corrupted) {
-            corruptedWSS.add(element) 
+          if (diffInDays > adata[0].expiree_date) {
+            corrupted = true;
+          }          
+
+          if (corrupted == true) {
+            corruptedWSS.push(element)
+            //console.log(corruptedWSS)
           }
         })
       })
-    });
 
+    }));
+  }).then(()=>{
+    console.log(corruptedWSS)
     res.send(corruptedWSS)
   })
+
+  
+
 })
 
 
@@ -214,7 +246,11 @@ app.get("/data/monitoring", (req, res)=>{
 
 
 app.post("/login",(req, res) =>{
-  userData = JSON.parse(JSON.stringify(req.body))
+  if (req.cookies.token == "1234") {
+    res.send(200)
+  }
+
+  userData = JSON.parse(JSON.stringify(req.body))  
   if(userData.username == username && userData.password == pwd){
     res.cookie("token", "1234")
     res.send(200)

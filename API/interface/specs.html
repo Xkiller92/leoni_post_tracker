@@ -71,14 +71,20 @@
         </div>
 
         <div class="row align-items-center">
+                
+                
           <div class="col">
-            <button onclick="AddSpec()" type="button" class="btn btn-success">Add</button>
+              <button onclick="AddSpec()" type="button" class="btn btn-success">Add Entry</button>
           </div>
-          <div class="col"></div>
+          
+          
           <div class="col">
-            <button onclick="AddFromExel()" type="button" class="btn btn-warning">Import from exel</button>
+              <div class="input-group mb-3">
+                  <label class="input-group-text" for="inputGroupFile01">Import from excel  </label>
+                  <input type="file"  class="form-control" id="docpicker">
+              </div>
           </div>
-        </div>
+      </div>
       </div>
     </div>
   </div>
@@ -89,6 +95,8 @@
   </div>
 
   <script src="./specs.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/xlsx/0.8.0/jszip.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/xlsx/0.8.0/xlsx.js"></script>
 </body>
 
 </html>

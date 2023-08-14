@@ -47,17 +47,9 @@
         }
       }
     },
-    "/data/spec/name/{name}": {
-      "get": {
+    "/data/spec/id": {
+      "post": {
         "description": "",
-        "parameters": [
-          {
-            "name": "name",
-            "in": "path",
-            "required": true,
-            "type": "string"
-          }
-        ],
         "responses": {
           "200": {
             "description": "OK"
@@ -82,7 +74,7 @@
       }
     },
     "/delete/spec": {
-      "delete": {
+      "post": {
         "description": "",
         "responses": {
           "200": {
@@ -107,17 +99,65 @@
         }
       }
     },
-    "/data/workstation/name/{name}": {
+    "/data/workstation/id": {
+      "post": {
+        "description": "",
+        "responses": {
+          "200": {
+            "description": "OK"
+          },
+          "403": {
+            "description": "Forbidden"
+          }
+        }
+      }
+    },
+    "/data/pairs": {
       "get": {
         "description": "",
-        "parameters": [
-          {
-            "name": "name",
-            "in": "path",
-            "required": true,
-            "type": "string"
+        "responses": {
+          "200": {
+            "description": "OK"
+          },
+          "403": {
+            "description": "Forbidden"
           }
-        ],
+        }
+      }
+    },
+    "/collect/pair": {
+      "post": {
+        "description": "",
+        "responses": {
+          "403": {
+            "description": "Forbidden"
+          }
+        }
+      }
+    },
+    "/modify/pair": {
+      "post": {
+        "description": "",
+        "responses": {
+          "403": {
+            "description": "Forbidden"
+          }
+        }
+      }
+    },
+    "/delete/pair": {
+      "post": {
+        "description": "",
+        "responses": {
+          "403": {
+            "description": "Forbidden"
+          }
+        }
+      }
+    },
+    "/data/monitoring": {
+      "get": {
+        "description": "",
         "responses": {
           "200": {
             "description": "OK"

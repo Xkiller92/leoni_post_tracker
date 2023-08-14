@@ -29,9 +29,71 @@ function FetchSpecs(){
     })
 }
 
-function ImportFromExel(){
-  //add every spec in the exel file
+var file = document.getElementById('docpicker')
+file.addEventListener('change', importFile);
+
+function importFile(evt) {
+  var f = evt.target.files[0];
+
+  if (f) {
+    var r = new FileReader();
+    r.onload = e => {
+      var contents = processExcel(e.target.result);
+      console.log(contents)
+
+      contents.forEach(element => {
+        const req = new Request("http://localhost:3000/collect/specs")
+        req.headers.set("Content-Type", "application/json")
+        bod = 
+        {
+          'name' : element[0],
+          'number' : element[1],
+          'freeDiskSpace' : element[2],
+          'totalDiskSpace' : element[3],
+          'ramCapacity' : element[4],
+          'afkTime' : element[5] 
+        }
+
+        const opt = {
+            method: "POST",
+            mode: "cors",
+            body : JSON.stringify(bod)
+        };
+
+        fetch(req, opt).then((res)=>{
+            if(res.status != 200){
+                alert("something went wrong please retry")
+                return;
+            }
+        })
+      });
+    }
+    r.readAsBinaryString(f);
+  } else {
+    console.log("Failed to load file");
+  }
 }
+
+function processExcel(data) {
+  var workbook = XLSX.read(data, {
+    type: 'binary'
+  });
+
+  var firstSheet = workbook.SheetNames[0];
+  var data = to_json(workbook);
+  return data
+};
+
+function to_json(workbook) {
+  var result = {};
+  workbook.SheetNames.forEach(function(sheetName) {
+    var roa = XLSX.utils.sheet_to_json(workbook.Sheets[sheetName], {
+      header: 1
+    });
+    if (roa.length) result[sheetName] = roa;
+  });
+  return JSON.stringify(result, 2, 2);
+};
 
 function ModifySpec(id){
   //get the values
@@ -40,7 +102,7 @@ function ModifySpec(id){
     totalDisk = document.getElementById(id +'totalDisk').value
     freeDisk = document.getElementById(id +'freeDisk').value
     ram = document.getElementById(id +'ram').value
-    afkTime = document.getElementById(id +'afktime').value
+    afkTime = document.getElementById(id +'afkTime').value
   //modify the db
 
     const req = new Request("http://localhost:3000/update/spec")
@@ -128,6 +190,7 @@ function AddSpec(supplied = false,n, s, t, f, r, a){
     }
     
     UUID = uuid();
+    UUID2 = uuid();
 
     container.innerHTML += 
     "<div class='card my-3 mx-5' 'bg-secondary'>\
@@ -217,16 +280,20 @@ function AddSpec(supplied = false,n, s, t, f, r, a){
           </div>\
           <div class='row align-items-center'>\
             <div class='col'>\
-                <button onclick='DeleteSpec("+UUID+") type='button' class='btn btn-success'>Delete</button>\
+                <button id='"+UUID+"' class='btn btn-danger'>Delete</button>\
             </div>\
             <div class='col'></div>\
             <div class='col'>\
-                <button onclick='ModifySpec("+UUID+")' type='button' class='btn btn-success'>modify</button>\
+                <button id='"+UUID2+"' class='btn btn-info'>modify</button>\
             </div>\
           </div>\
         </div>\
       </div>\
     </div>"
+
+
+    document.getElementById(UUID).onclick = function(){DeleteSpec(UUID)}
+    document.getElementById(UUID2).onclick = function(){ModifySpec(UUID)}
 
     //add the spec to the db
     if(supplied == false){
